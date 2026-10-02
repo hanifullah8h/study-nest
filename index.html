@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Nest - Smart Offline Study Space</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">S</div>
+
+            <div>
+                <h1>Study Nest</h1>
+                <p>Smart Study Space</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <button class="nav-btn active" data-page="dashboardPage">
+                <span>⌂</span>
+                <b>Dashboard</b>
+            </button>
+
+            <button class="nav-btn" data-page="resourcesPage">
+                <span>▣</span>
+                <b>Resources</b>
+            </button>
+
+            <button class="nav-btn" data-page="aiTutorPage">
+                <span>✦</span>
+                <b>AI Tutor</b>
+            </button>
+
+            <button class="nav-btn" data-page="libraryPage">
+                <span>▤</span>
+                <b>Study Library</b>
+            </button>
+
+            <button class="nav-btn" data-page="timetablePage">
+                <span>◫</span>
+                <b>Timetable</b>
+            </button>
+
+            <button class="nav-btn" data-page="remindersPage">
+                <span>◷</span>
+                <b>Reminders</b>
+            </button>
+
+            <button class="nav-btn" data-page="addResourcePage">
+                <span>＋</span>
+                <b>Add Resource</b>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button class="nav-btn" id="themeBtn">
+                <span>◐</span>
+                <b>Dark Mode</b>
+            </button>
+
+            <div class="offline-card">
+                <div class="status-dot"></div>
+                <div>
+                    <strong>Offline Ready</strong>
+                    <small id="connectionText">Local storage active</small>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" id="mobileMenuBtn">☰</button>
+
+            <div>
+                <h2 id="pageTitle">Dashboard</h2>
+                <p id="pageSubtitle">Your learning space</p>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online-indicator">
+                    <span id="onlineDot"></span>
+                    <span id="onlineStatus">Offline</span>
+                </div>
+
+                <button class="icon-btn" id="notificationBtn">🔔</button>
+
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section class="page active" id="dashboardPage">
+
+                <div class="hero-card">
+
+                    <div class="hero-text">
+
+                        <span class="eyebrow">WELCOME BACK</span>
+
+                        <h1>Learn something new today.</h1>
+
+                        <p>
+                            Study your books, notes and videos,
+                            ask your local AI tutor questions,
+                            and keep your study routine organized.
+                        </p>
+
+                        <div class="hero-buttons">
+
+                            <button class="primary-btn" data-page-target="aiTutorPage">
+                                ✦ Ask AI Tutor
+                            </button>
+
+                            <button class="secondary-btn" data-page-target="addResourcePage">
+                                ＋ Add Resource
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="hero-graphic">
+                        <div class="planet"></div>
+                        <div class="floating-book">📚</div>
+                        <div class="floating-star star1">✦</div>
+                        <div class="floating-star star2">✧</div>
+                        <div class="floating-star star3">•</div>
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">▣</div>
+                        <div>
+                            <span>Resources</span>
+                            <strong id="dashResources">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">✦</div>
+                        <div>
+                            <span>AI Questions</span>
+                            <strong id="dashQuestions">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">◷</div>
+                        <div>
+                            <span>Reminders</span>
+                            <strong id="dashReminders">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">▤</div>
+                        <div>
+                            <span>Study Subjects</span>
+                            <strong id="dashSubjects">3</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Continue Learning</h2>
+                        <p>Quick access to your study material.</p>
+                    </div>
+
+                    <button class="text-btn" data-page-target="libraryPage">
+                        View Library →
+                    </button>
+                </div>
+
+                <div class="quick-grid" id="dashboardResources"></div>
+
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Today's Study Plan</h2>
+                        <p>Your upcoming timetable and reminders.</p>
+                    </div>
+
+                    <button class="text-btn" data-page-target="timetablePage">
+                        Open Plan →
+                    </button>
+                </div>
+
+                <div id="dashboardPlan" class="plan-list"></div>
+
+            </section>
+
+
+
+            <!-- ================= RESOURCES ================= -->
+
+            <section class="page" id="resourcesPage">
+
+                <div class="page-head">
+
+                    <div>
+                        <span class="eyebrow">MY MATERIAL</span>
+                        <h1>Your Resources</h1>
+                        <p>Books, notes, PDFs, videos and links.</p>
+                    </div>
+
+                    <button class="primary-btn" data-page-target="addResourcePage">
+                        ＋ Add Resource
+                    </button>
+
+                </div>
+
+
+                <div class="toolbar">
+
+                    <div class="search-box">
+                        🔎
+                        <input
+                            id="resourceSearch"
+                            type="search"
+                            placeholder="Search resources..."
+                        >
+                    </div>
+
+                    <div class="filter-buttons">
+
+                        <button class="filter-btn active" data-resource-filter="all">
+                            All
+                        </button>
+
+                        <button class="filter-btn" data-resource-filter="note">
+                            Notes
+                        </button>
+
+                        <button class="filter-btn" data-resource-filter="pdf">
+                            PDFs
+                        </button>
+
+                        <button class="filter-btn" data-resource-filter="video">
+                            Videos
+                        </button>
+
+                        <button class="filter-btn" data-resource-filter="link">
+                            Online
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="resource-grid" id="resourceGrid"></div>
+
+                <div class="empty-state hidden" id="resourceEmpty">
+                    <div>📚</div>
+                    <h2>No resources found</h2>
+                    <p>Add a note, PDF, video or online resource.</p>
+
+                    <button class="primary-btn" data-page-target="addResourcePage">
+                        ＋ Add Resource
+                    </button>
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= AI TUTOR ================= -->
+
+            <section class="page" id="aiTutorPage">
+
+                <div class="ai-layout">
+
+                    <div class="ai-main">
+
+                        <div class="ai-header-card">
+
+                            <div class="ai-avatar">✦</div>
+
+                            <div>
+                                <span class="eyebrow">LOCAL AI TUTOR</span>
+                                <h1>Study Nest AI</h1>
+
+                                <p id="aiModeText">
+                                    Local AI is ready when the local model is running.
+                                </p>
+                            </div>
+
+                            <div class="ai-status">
+                                <span id="aiStatusDot"></span>
+                                <span id="aiStatusText">Checking...</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="suggestion-row">
+
+                            <button class="suggestion-btn" data-question="Explain noun in simple words.">
+                                Noun
+                            </button>
+
+                            <button class="suggestion-btn" data-question="Explain the CPU and its main functions.">
+                                CPU
+                            </button>
+
+                            <button class="suggestion-btn" data-question="Explain Newton's laws of motion with examples.">
+                                Newton's Laws
+                            </button>
+
+                            <button class="suggestion-btn" data-question="Explain the periodic table in simple words.">
+                                Periodic Table
+                            </button>
+
+                            <button class="suggestion-btn" data-question="Explain English tenses with simple examples.">
+                                Tenses
+                            </button>
+
+                        </div>
+
+
+                        <div class="chat-window" id="chatWindow">
+
+                            <div class="welcome-chat">
+
+                                <div class="big-ai-icon">✦</div>
+
+                                <h2>How can I help you study?</h2>
+
+                                <p>
+                                    Ask questions naturally. The local AI can use
+                                    your saved study material as context.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ai-input-area">
+
+                            <textarea
+                                id="aiQuestion"
+                                rows="2"
+                                placeholder="Ask your tutor anything..."
+                            ></textarea>
+
+                            <button id="sendQuestionBtn" class="send-btn">
+                                ➤
+                            </button>
+
+                        </div>
+
+
+                        <div class="chat-actions">
+
+                            <button id="clearChatBtn" class="small-btn">
+                                🗑 Clear Chat
+                            </button>
+
+                            <button id="refreshAIBtn" class="small-btn">
+                                ↻ Check AI
+                            </button>
+
+                            <button id="aiSettingsBtn" class="small-btn">
+                                ⚙ AI Settings
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <aside class="ai-side">
+
+                        <div class="context-card">
+
+                            <div class="card-title">
+                                <span>📚</span>
+                                Resource Knowledge
+                            </div>
+
+                            <div class="context-status">
+                                <span class="green-dot"></span>
+                                <span id="resourceContextStatus">
+                                    Ready
+                                </span>
+                            </div>
+
+                            <p>
+                                Study Nest sends relevant saved resource
+                                text to the local AI when answering questions.
+                            </p>
+
+                            <div class="context-count">
+                                <strong id="aiResourceCount">0</strong>
+                                <span>resources available</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="context-card">
+
+                            <div class="card-title">
+                                <span>💡</span>
+                                Try asking
+                            </div>
+
+                            <div class="example-question">
+                                "I am confused about nouns."
+                            </div>
+
+                            <div class="example-question">
+                                "Explain this PDF to me."
+                            </div>
+
+                            <div class="example-question">
+                                "What is the difference between speed and velocity?"
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= LIBRARY ================= -->
+
+            <section class="page" id="libraryPage">
+
+                <div class="page-head">
+
+                    <div>
+                        <span class="eyebrow">LEARNING HUB</span>
+                        <h1>Study Library</h1>
+                        <p>Your subjects and built-in study material.</p>
+                    </div>
+
+                    <div class="library-count">
+                        <strong id="libraryCount">0</strong>
+                        <span>resources</span>
+                    </div>
+
+                </div>
+
+
+                <div class="subject-tabs">
+
+                    <button class="subject-tab active" data-subject="all">
+                        All
+                    </button>
+
+                    <button class="subject-tab" data-subject="English">
+                        English
+                    </button>
+
+                    <button class="subject-tab" data-subject="Mathematics">
+                        Mathematics
+                    </button>
+
+                    <button class="subject-tab" data-subject="Chemistry">
+                        Chemistry
+                    </button>
+
+                </div>
+
+
+                <div class="library-search">
+                    🔎
+                    <input id="librarySearch" placeholder="Search your library...">
+                </div>
+
+
+                <div class="library-grid" id="libraryGrid"></div>
+
+            </section>
+
+
+
+            <!-- ================= TIMETABLE ================= -->
+
+            <section class="page" id="timetablePage">
+
+                <div class="page-head">
+
+                    <div>
+                        <span class="eyebrow">YOUR ROUTINE</span>
+                        <h1>Study Timetable</h1>
+                        <p>Organize your weekly study sessions.</p>
+                    </div>
+
+                    <button class="primary-btn" id="addTimetableBtn">
+                        ＋ Add Study Slot
+                    </button>
+
+                </div>
+
+
+                <div class="week-grid" id="timetableGrid">
+
+                    <div class="week-header">Time</div>
+                    <div class="week-header">Monday</div>
+                    <div class="week-header">Tuesday</div>
+                    <div class="week-header">Wednesday</div>
+                    <div class="week-header">Thursday</div>
+                    <div class="week-header">Friday</div>
+                    <div class="week-header">Saturday</div>
+                    <div class="week-header">Sunday</div>
+
+                </div>
+
+                <div id="mobileTimetable"></div>
+
+            </section>
+
+
+
+            <!-- ================= REMINDERS ================= -->
+
+            <section class="page" id="remindersPage">
+
+                <div class="page-head">
+
+                    <div>
+                        <span class="eyebrow">STAY ON TRACK</span>
+                        <h1>Reminders</h1>
+                        <p>Never forget an important study task.</p>
+                    </div>
+
+                    <button class="primary-btn" id="addReminderBtn">
+                        ＋ Add Reminder
+                    </button>
+
+                </div>
+
+
+                <div class="reminder-stats">
+
+                    <div>
+                        <span>Total</span>
+                        <strong id="totalReminders">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Today</span>
+                        <strong id="todayReminders">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Upcoming</span>
+                        <strong id="upcomingReminders">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="reminder-list" id="reminderList"></div>
+
+            </section>
+
+
+
+            <!-- ================= ADD RESOURCE ================= -->
+
+            <section class="page" id="addResourcePage">
+
+                <div class="page-head">
+
+                    <div>
+                        <span class="eyebrow">BUILD YOUR KNOWLEDGE</span>
+                        <h1>Add Resource</h1>
+                        <p>Save study material directly on your computer.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="source-selector">
+
+                    <button class="source-card active" id="localResourceOption">
+
+                        <span>💻</span>
+
+                        <div>
+                            <strong>Computer / Offline</strong>
+                            <small>Add files from your computer.</small>
+                        </div>
+
+                    </button>
+
+
+                    <button class="source-card" id="onlineResourceOption">
+
+                        <span>🌐</span>
+
+                        <div>
+                            <strong>Online Resource</strong>
+                            <small>Save an online page or video link.</small>
+                        </div>
+
+                    </button>
+
+                </div>
+
+
+                <div class="add-form-card">
+
+                    <div class="type-tabs">
+
+                        <button class="type-tab active" data-resource-type="note">
+                            📝 Note
+                        </button>
+
+                        <button class="type-tab" data-resource-type="pdf">
+                            📄 PDF / File
+                        </button>
+
+                        <button class="type-tab" data-resource-type="video">
+                            🎥 Video
+                        </button>
+
+                        <button class="type-tab" data-resource-type="link">
+                            🔗 Link
+                        </button>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <label>
+                            Resource Name
+                            <input id="resourceName" placeholder="e.g. English Grammar Notes">
+                        </label>
+
+                        <label>
+                            Subject
+                            <select id="resourceSubject">
+                                <option>English</option>
+                                <option>Mathematics</option>
+                                <option>Chemistry</option>
+                                <option>Physics</option>
+                                <option>Computer Science</option>
+                                <option>General</option>
+                            </select>
+                        </label>
+
+                        <label class="full">
+                            Description
+                            <input
+                                id="resourceDescription"
+                                placeholder="Short description"
+                            >
+                        </label>
+
+                        <label class="full" id="contentField">
+
+                            Text / Note Content
+
+                            <textarea
+                                id="resourceContent"
+                                rows="10"
+                                placeholder="Write or paste your notes here..."
+                            ></textarea>
+
+                        </label>
+
+
+                        <label class="full hidden" id="fileField">
+
+                            Choose File
+
+                            <div class="file-picker">
+
+                                <input
+                                    type="file"
+                                    id="resourceFile"
+                                    accept=".pdf,.txt,.md,.csv,.json,.mp4,.webm,.ogg,.mkv"
+                                >
+
+                                <div class="file-picker-content">
+                                    <span>📁</span>
+                                    <strong>Choose a file</strong>
+                                    <small id="selectedFileName">
+                                        PDF, video or text file
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="full hidden" id="urlField">
+
+                            Online URL
+
+                            <input
+                                id="resourceURL"
+                                type="url"
+                                placeholder="https://..."
+                            >
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button class="secondary-btn" id="cancelResourceBtn">
+                            Cancel
+                        </button>
+
+                        <button class="primary-btn" id="saveResourceBtn">
+                            Save Resource
+                        </button>
+
+                    </div>
+
+                    <div id="saveProgress" class="progress-message"></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal-overlay hidden" id="modalOverlay">
+
+    <div class="modal" id="modalContent"></div>
+
+</div>
+
+
+<!-- Local PDF.js -->
+<script src="./libs/pdf.min.js"></script>
+
+<script>
+    if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "./libs/pdf.worker.min.js";
+    }
+</script>
+
+<script src="script.js"></script>
+<script src="ai-tutor.js"></script>
+</body>
+</html>
